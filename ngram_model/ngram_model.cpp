@@ -17,6 +17,7 @@ std::unordered_map<std::string, std::unordered_map<std::string, int>> calc_word_
     double cpu_time_used;
     start = clock();
 
+    // load the datasets
     std::vector<std::string> utterances = parse_utterances_from_soda_parquet();
     std::cout << "finished collecting soda utterances " << utterances.size() << std::endl;
     std::vector<std::string> utterances2 = parse_utterances_from_csv();
