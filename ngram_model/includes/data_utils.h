@@ -8,6 +8,14 @@
 #include <unordered_map>
 #include <sstream>
 
+void replace_commas_with_spaces(std::string& str) {
+    size_t pos = 0;
+    while ((pos = str.find(',', pos)) != std::string::npos) {
+        str.replace(pos, 1, " ");
+        pos += 1; 
+    }
+}
+
 bool is_trailing_punct(char c) {
     return c == '.' || c == '!' || c == '?';
 }

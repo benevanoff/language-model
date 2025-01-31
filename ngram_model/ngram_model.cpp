@@ -22,6 +22,9 @@ std::unordered_map<std::string, std::unordered_map<std::string, int>> calc_word_
     std::vector<std::string> utterances2 = parse_utterances_from_csv();
     std::cout << "finished collecting csv utterances " << utterances2.size() << std::endl;
     utterances.insert(utterances.end(), utterances2.begin(), utterances2.end());
+    std::vector<std::string> utterances3 = parse_utterances_from_dialog_csv();
+    std::cout << "finished collecting dialog csv utterances " << utterances3.size() << std::endl;
+    utterances.insert(utterances.end(), utterances3.begin(), utterances3.end());
     std::cout << "total utterances count " << utterances.size() << std::endl;
 
     std::unordered_map<std::string, std::unordered_map<std::string, int>> vocab_dist;

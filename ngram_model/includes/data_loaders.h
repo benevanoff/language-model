@@ -15,7 +15,7 @@ std::vector<std::string> parse_utterances_from_csv() {
     std::vector<std::string> utterances;
     
     std::ifstream ifs;
-    ifs.open("../data/combined.csv");
+    ifs.open("../data/train.csv");
 
     std::string line;
     std::getline(ifs, line); // discard head
@@ -26,6 +26,30 @@ std::vector<std::string> parse_utterances_from_csv() {
             // each line should contain a single utterance from a single interlocuter
             std::getline(ifs, line);
             utterances.push_back(line.substr(line.find(":")+2));
+        } catch (std::exception e) {}
+    }
+
+    return utterances;
+}
+
+std::vector<std::string> parse_utterances_from_dialog_csv() {
+
+    std::vector<std::string> utterances;
+    
+    std::ifstream ifs;
+    ifs.open("../data/dialog.csv");
+
+    std::string line;
+    std::getline(ifs, line); // discard head
+
+    while (ifs.good()) {    
+        try {
+            // read each line from the data file
+            std::getline(ifs, line);
+            std::string tmp = line.substr(line.find(",")+2);
+            if (tmp.contains("\"")) continue; // ignore more complicated examples for now
+            replace_commas_with_spaces(tmp);
+            utterances.push_back(tmp);
         } catch (std::exception e) {}
     }
 
