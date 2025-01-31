@@ -1,8 +1,17 @@
+# Dependencies
+
+```
+g++ (C++23)
+Make
+Apache Arrow/Parquet - https://arrow.apache.org/install/
+```
+
 ## Build instructions
 
-`mkdir bin`
-
-`make`
+```
+mkdir bin
+make
+```
 
 ## Example usage
 
