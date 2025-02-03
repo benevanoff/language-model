@@ -9,7 +9,7 @@ void replace_commas_with_spaces(std::string& str) {
 }
 
 bool is_trailing_punct(char c) {
-    return c == '.' || c == '!' || c == '?';
+    return c == '.' || c == '!' || c == '?' || c == ',';
 }
 
 std::vector<std::string> tokenize(const std::string& line) {

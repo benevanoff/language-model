@@ -68,7 +68,8 @@ std::vector<std::string> iterate_dialogue(const std::shared_ptr<arrow::Table>& t
 
         // Iterate through each row in the chunk
         for (int64_t i = 0; i < list_array->length(); ++i) {
-            std::cout << "loaded another chunk (" << utterances.size() << "/" << table->num_rows() << ")" << std::endl;
+            if (utterances.size() % 50000 == 0)
+                std::cout << "loaded another chunk (" << utterances.size() << "/" << table->num_rows() << ")" << std::endl;
 
             if (list_array->IsNull(i)) {
                 std::cout << "Row " << i << ": NULL" << std::endl;
@@ -137,7 +138,7 @@ std::shared_ptr<arrow::Table> read_parquet_file(const std::string& filename) {
 
 std::vector<std::string> parse_utterances_from_soda_parquet() {
     // Path to your Parquet file
-    std::string parquet_file = "../data/test.parquet";
+    std::string parquet_file = "../data/train.parquet";
 
     // Read the Parquet file into an Arrow Table
     std::shared_ptr<arrow::Table> table = read_parquet_file(parquet_file);
