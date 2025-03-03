@@ -73,6 +73,7 @@ class EmbeddingsModel(torch.nn.Module):
 
     def __init__(self, utterances:list, dimensions:int):
         super(EmbeddingsModel, self).__init__()
+        self.logsoftmax = torch.nn.LogSoftmax(dim=0)
         self.utterances = utterances
         self.dimensions = dimensions
         self.Vo, self.vocab_idx = build_vocabulary_matrix(utterances, dimensions=3)
@@ -80,8 +81,8 @@ class EmbeddingsModel(torch.nn.Module):
         print(self.Vo)
         print(self.Vc)
 
-    def forward(self, outside:str, center:str):
-        return calc_probability(Vo=self.Vo, Vc=self.Vc, Wo=outside, Wc=center, vocab_idx=self.vocab_idx)
+    def forward(self, center:str):
+        return self.logsoftmax(self.Vo @ self.Vc[self.vocab_idx[center]])
 
 if __name__ == '__main__':
     torch.manual_seed(123)
@@ -91,5 +92,5 @@ if __name__ == '__main__':
 
     print('test_EmbeddingsModel')
     model = EmbeddingsModel(utterances=["<start> he is sad", "<start> she is sad"], dimensions=3)
-    prediction = model("he", "she")
+    prediction = model("she")
     print(prediction)
